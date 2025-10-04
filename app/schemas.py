@@ -794,3 +794,353 @@ class MotivationDashboard(BaseModel):
     weekly_stats: List[UserMotivationStatsResponse]
     motivation_trend: str  # increasing, stable, decreasing
     consistency_score: float  # 0-100
+
+
+# ================================
+# NEW SCHEMAS FOR FRONTEND COMPATIBILITY
+# ================================
+
+# User Profile Schemas
+class UserProfileBase(BaseModel):
+    """Base schema for user profile"""
+    first_name: Optional[str] = Field(None, max_length=100)
+    last_name: Optional[str] = Field(None, max_length=100)
+    date_of_birth: Optional[date] = None
+    phone_number: Optional[str] = Field(None, max_length=20)
+    country: Optional[str] = Field(None, max_length=100)
+    city: Optional[str] = Field(None, max_length=100)
+    timezone: Optional[str] = Field(None, max_length=50)
+    
+    # Physical
+    height: Optional[float] = Field(None, ge=50, le=300)  # cm
+    current_weight: Optional[float] = Field(None, ge=20, le=500)  # kg
+    target_weight: Optional[float] = Field(None, ge=20, le=500)  # kg
+    gender: Optional[str] = Field(None, pattern="^(male|female|other)$")
+    body_type: Optional[str] = Field(None, pattern="^(ectomorph|mesomorph|endomorph)$")
+    
+    # Fitness
+    fitness_level: Optional[str] = Field(None, pattern="^(beginner|intermediate|advanced)$")
+    activity_level: Optional[str] = Field(None, pattern="^(sedentary|lightly_active|moderately_active|very_active|extremely_active)$")
+    primary_goal: Optional[str] = Field(None, pattern="^(lose_weight|gain_muscle|maintain_weight|improve_endurance|general_fitness)$")
+    secondary_goals: Optional[List[str]] = None
+    
+    # Preferences
+    preferred_workout_time: Optional[str] = Field(None, pattern="^(morning|afternoon|evening)$")
+    workout_frequency_goal: Optional[int] = Field(None, ge=1, le=14)
+    available_equipment: Optional[List[str]] = None
+    workout_duration_preference: Optional[int] = Field(None, ge=5, le=300)  # minutes
+    
+    # Health
+    medical_conditions: Optional[List[str]] = None
+    injuries_limitations: Optional[List[str]] = None
+    medications: Optional[List[str]] = None
+    allergies: Optional[List[str]] = None
+    
+    # Social
+    bio: Optional[str] = Field(None, max_length=1000)
+    motivation_level: Optional[int] = Field(5, ge=1, le=10)
+    workout_buddy_preference: Optional[bool] = False
+    public_profile: Optional[bool] = False
+    share_progress: Optional[bool] = True
+    
+    # Media
+    profile_picture_url: Optional[str] = Field(None, max_length=500)
+    cover_photo_url: Optional[str] = Field(None, max_length=500)
+    
+    # Settings
+    email_notifications: Optional[bool] = True
+    push_notifications: Optional[bool] = True
+    marketing_emails: Optional[bool] = False
+    data_sharing: Optional[bool] = False
+    measurement_unit: Optional[str] = Field("metric", pattern="^(metric|imperial)$")
+    language: Optional[str] = Field("es", pattern="^(es|en)$")
+    theme: Optional[str] = Field("light", pattern="^(light|dark|auto)$")
+
+
+class UserProfileCreate(UserProfileBase):
+    """Schema for creating user profile"""
+    pass
+
+
+class UserProfileUpdate(BaseModel):
+    """Schema for updating user profile"""
+    first_name: Optional[str] = Field(None, max_length=100)
+    last_name: Optional[str] = Field(None, max_length=100)
+    date_of_birth: Optional[date] = None
+    phone_number: Optional[str] = Field(None, max_length=20)
+    country: Optional[str] = Field(None, max_length=100)
+    city: Optional[str] = Field(None, max_length=100)
+    height: Optional[float] = Field(None, ge=50, le=300)
+    current_weight: Optional[float] = Field(None, ge=20, le=500)
+    target_weight: Optional[float] = Field(None, ge=20, le=500)
+    gender: Optional[str] = Field(None, pattern="^(male|female|other)$")
+    fitness_level: Optional[str] = Field(None, pattern="^(beginner|intermediate|advanced)$")
+    primary_goal: Optional[str] = Field(None, pattern="^(lose_weight|gain_muscle|maintain_weight|improve_endurance|general_fitness)$")
+    bio: Optional[str] = Field(None, max_length=1000)
+    profile_picture_url: Optional[str] = Field(None, max_length=500)
+
+
+class UserProfileResponse(UserProfileBase):
+    """Schema for user profile response"""
+    id: int
+    user_id: int
+    created_at: datetime
+    updated_at: datetime
+
+    class Config:
+        from_attributes = True
+
+
+# Weight Tracking Schemas
+class WeightEntryBase(BaseModel):
+    """Base schema for weight entry"""
+    date: date
+    weight: float = Field(..., ge=20, le=500)  # kg
+    body_fat_percentage: Optional[float] = Field(None, ge=0, le=100)
+    muscle_mass_percentage: Optional[float] = Field(None, ge=0, le=100)
+    water_percentage: Optional[float] = Field(None, ge=0, le=100)
+    bone_mass: Optional[float] = Field(None, ge=0, le=50)
+    visceral_fat: Optional[float] = Field(None, ge=0, le=100)
+    metabolic_age: Optional[int] = Field(None, ge=10, le=120)
+    
+    # Measurements
+    waist: Optional[float] = Field(None, ge=10, le=300)  # cm
+    chest: Optional[float] = Field(None, ge=10, le=300)
+    hips: Optional[float] = Field(None, ge=10, le=300)
+    neck: Optional[float] = Field(None, ge=10, le=100)
+    bicep: Optional[float] = Field(None, ge=10, le=100)
+    thigh: Optional[float] = Field(None, ge=10, le=200)
+    
+    notes: Optional[str] = Field(None, max_length=1000)
+    mood: Optional[str] = Field(None, pattern="^(great|good|okay|bad|terrible)$")
+    energy_level: Optional[int] = Field(None, ge=1, le=10)
+    progress_photo_url: Optional[str] = Field(None, max_length=500)
+    measurement_method: Optional[str] = Field("scale", pattern="^(scale|tape_measure|body_scan|visual)$")
+    measurement_time: Optional[str] = Field(None, pattern="^(morning|evening|after_workout)$")
+
+
+class WeightEntryCreate(WeightEntryBase):
+    """Schema for creating weight entry"""
+    pass
+
+
+class WeightEntryUpdate(BaseModel):
+    """Schema for updating weight entry"""
+    weight: Optional[float] = Field(None, ge=20, le=500)
+    body_fat_percentage: Optional[float] = Field(None, ge=0, le=100)
+    notes: Optional[str] = Field(None, max_length=1000)
+    mood: Optional[str] = Field(None, pattern="^(great|good|okay|bad|terrible)$")
+    energy_level: Optional[int] = Field(None, ge=1, le=10)
+
+
+class WeightEntryResponse(WeightEntryBase):
+    """Schema for weight entry response"""
+    id: int
+    user_id: int
+    weight_change: Optional[float]
+    weekly_average: Optional[float]
+    monthly_average: Optional[float]
+    progress_toward_goal: Optional[float]
+    created_at: datetime
+
+    class Config:
+        from_attributes = True
+
+
+class WeightProgressSummary(BaseModel):
+    """Schema for weight progress summary"""
+    current_weight: float
+    starting_weight: Optional[float]
+    target_weight: Optional[float]
+    total_weight_change: Optional[float]
+    weight_to_goal: Optional[float]
+    progress_percentage: Optional[float]
+    recent_entries: List[WeightEntryResponse]
+    weekly_average: Optional[float]
+    monthly_average: Optional[float]
+    trend: str  # increasing, decreasing, stable
+
+
+# Enhanced Goal Schemas
+class GoalBase(BaseModel):
+    """Base schema for goals"""
+    title: str = Field(..., min_length=3, max_length=255)
+    description: Optional[str] = Field(None, max_length=1000)
+    category: str = Field(..., pattern="^(weight_loss|muscle_gain|strength|endurance|nutrition|habits)$")
+    subcategory: Optional[str] = Field(None, max_length=100)
+    target_value: float = Field(..., gt=0)
+    starting_value: Optional[float] = Field(None, ge=0)
+    unit: str = Field(..., min_length=1, max_length=50)
+    target_date: Optional[date] = None
+    start_date: Optional[date] = None
+    priority: Optional[str] = Field("medium", pattern="^(low|medium|high|critical)$")
+    difficulty: Optional[str] = Field(None, pattern="^(easy|medium|hard|extreme)$")
+    motivation_reason: Optional[str] = Field(None, max_length=1000)
+    reward_for_completion: Optional[str] = Field(None, max_length=255)
+    reminder_frequency: Optional[str] = Field(None, pattern="^(daily|weekly|monthly)$")
+    goal_image_url: Optional[str] = Field(None, max_length=500)
+    is_public: Optional[bool] = False
+    tags: Optional[List[str]] = None
+
+
+class GoalCreate(GoalBase):
+    """Schema for creating goal"""
+    pass
+
+
+class GoalUpdate(BaseModel):
+    """Schema for updating goal"""
+    title: Optional[str] = Field(None, min_length=3, max_length=255)
+    description: Optional[str] = Field(None, max_length=1000)
+    target_value: Optional[float] = Field(None, gt=0)
+    target_date: Optional[date] = None
+    status: Optional[str] = Field(None, pattern="^(active|completed|paused|cancelled)$")
+    priority: Optional[str] = Field(None, pattern="^(low|medium|high|critical)$")
+    motivation_reason: Optional[str] = Field(None, max_length=1000)
+    current_value: Optional[float] = Field(None, ge=0)
+
+
+class GoalResponse(GoalBase):
+    """Schema for goal response"""
+    id: int
+    user_id: int
+    current_value: float
+    progress_percentage: float
+    status: str
+    estimated_completion_date: Optional[date]
+    last_updated_progress: Optional[date]
+    is_smart_goal: bool
+    success_probability: float
+    created_at: datetime
+    updated_at: datetime
+
+    class Config:
+        from_attributes = True
+
+
+class GoalProgressBase(BaseModel):
+    """Base schema for goal progress"""
+    progress_value: float = Field(..., ge=0)
+    notes: Optional[str] = Field(None, max_length=1000)
+    mood: Optional[str] = Field(None, pattern="^(motivated|neutral|discouraged)$")
+    confidence_level: Optional[int] = Field(None, ge=1, le=10)
+    measurement_method: Optional[str] = Field(None, max_length=100)
+
+
+class GoalProgressCreate(GoalProgressBase):
+    """Schema for creating goal progress"""
+    pass
+
+
+class GoalProgressResponse(GoalProgressBase):
+    """Schema for goal progress response"""
+    id: int
+    goal_id: int
+    date: date
+    progress_change: Optional[float]
+    progress_percentage: float
+    verified: bool
+    created_at: datetime
+
+    class Config:
+        from_attributes = True
+
+
+# Workout of the Day Schemas
+class WorkoutOfTheDayBase(BaseModel):
+    """Base schema for workout of the day"""
+    title: str = Field(..., min_length=3, max_length=255)
+    description: str = Field(..., min_length=10, max_length=2000)
+    category: str = Field(..., pattern="^(strength|cardio|flexibility|full_body|hiit)$")
+    difficulty_level: str = Field(..., pattern="^(beginner|intermediate|advanced)$")
+    estimated_duration: int = Field(..., ge=5, le=180)  # minutes
+    calories_estimate: Optional[int] = Field(None, ge=50, le=2000)
+    equipment_needed: Optional[List[str]] = None
+    space_required: Optional[str] = Field(None, pattern="^(small|medium|large)$")
+    target_muscle_groups: Optional[List[str]] = None
+    motivation_tip: Optional[str] = Field(None, max_length=500)
+    video_url: Optional[str] = Field(None, max_length=500)
+    thumbnail_url: Optional[str] = Field(None, max_length=500)
+
+
+class WorkoutOfTheDayCreate(WorkoutOfTheDayBase):
+    """Schema for creating workout of the day"""
+    date: date
+    warm_up_exercises: Optional[List[Dict]] = None
+    main_exercises: List[Dict] = Field(..., min_items=1)
+    cool_down_exercises: Optional[List[Dict]] = None
+    form_tips: Optional[List[str]] = None
+    modifications: Optional[List[Dict]] = None
+
+
+class WorkoutOfTheDayResponse(WorkoutOfTheDayBase):
+    """Schema for workout of the day response"""
+    id: int
+    date: date
+    warm_up_exercises: Optional[List[Dict]]
+    main_exercises: List[Dict]
+    cool_down_exercises: Optional[List[Dict]]
+    form_tips: Optional[List[str]]
+    modifications: Optional[List[Dict]]
+    completion_count: int
+    average_rating: float
+    is_active: bool
+    featured: bool
+    created_at: datetime
+    updated_at: datetime
+
+    class Config:
+        from_attributes = True
+
+
+class UserWorkoutCompletionBase(BaseModel):
+    """Base schema for user workout completion"""
+    actual_duration: Optional[int] = Field(None, ge=1, le=300)
+    difficulty_rating: Optional[int] = Field(None, ge=1, le=5)
+    enjoyment_rating: Optional[int] = Field(None, ge=1, le=5)
+    exercises_completed: Optional[List[Dict]] = None
+    modifications_used: Optional[List[Dict]] = None
+    calories_burned: Optional[int] = Field(None, ge=10, le=2000)
+    notes: Optional[str] = Field(None, max_length=1000)
+    favorite: Optional[bool] = False
+    would_repeat: Optional[bool] = True
+
+
+class UserWorkoutCompletionCreate(UserWorkoutCompletionBase):
+    """Schema for creating workout completion"""
+    pass
+
+
+class UserWorkoutCompletionResponse(UserWorkoutCompletionBase):
+    """Schema for workout completion response"""
+    id: int
+    user_id: int
+    workout_id: int
+    completed_at: datetime
+
+    class Config:
+        from_attributes = True
+
+
+# Dashboard Schemas
+class FitnessDashboard(BaseModel):
+    """Main fitness dashboard schema"""
+    user_profile: UserProfileResponse
+    weight_progress: WeightProgressSummary
+    active_goals: List[GoalResponse]
+    recent_workouts: List[UserWorkoutCompletionResponse]
+    today_workout: Optional[WorkoutOfTheDayResponse]
+    motivation_summary: DailyMotivationSummary
+    weekly_stats: Dict[str, float]
+
+
+class ProfileEditRequest(BaseModel):
+    """Schema for profile edit requests from frontend"""
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
+    height: Optional[float] = None
+    current_weight: Optional[float] = None
+    target_weight: Optional[float] = None
+    fitness_level: Optional[str] = None
+    primary_goal: Optional[str] = None
+    bio: Optional[str] = None

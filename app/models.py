@@ -19,7 +19,7 @@ class User(Base):
     is_active = Column(Boolean, default=True, nullable=False)
     is_verified = Column(Boolean, default=False, nullable=False)
     
-    # Profile information
+    # Basic profile information (keep for backwards compatibility)
     age = Column(Integer, nullable=True)
     height = Column(Float, nullable=True)  # in cm
     weight = Column(Float, nullable=True)  # in kg
@@ -33,9 +33,11 @@ class User(Base):
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 
     # Relationships
+    profile = relationship("UserProfile", back_populates="user", uselist=False, cascade="all, delete-orphan")
     routines = relationship("Routine", back_populates="user")
     nutrition_entries = relationship("NutritionEntry", back_populates="user")
     progress_entries = relationship("ProgressEntry", back_populates="user")
+    weight_entries = relationship("WeightEntry", back_populates="user")
     workout_sessions = relationship("WorkoutSession", back_populates="user")
     goals = relationship("Goal", back_populates="user")
     notifications = relationship("Notification", back_populates="user")
@@ -48,6 +50,77 @@ class User(Base):
 
     def __repr__(self):
         return f"<User(id={self.id}, username='{self.username}', email='{self.email}')>"
+
+
+class UserProfile(Base):
+    """Extended user profile model for frontend compatibility"""
+    __tablename__ = "user_profiles"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False, unique=True)
+    
+    # Personal Information
+    first_name = Column(String(100), nullable=True)
+    last_name = Column(String(100), nullable=True)
+    date_of_birth = Column(Date, nullable=True)
+    phone_number = Column(String(20), nullable=True)
+    country = Column(String(100), nullable=True)
+    city = Column(String(100), nullable=True)
+    timezone = Column(String(50), nullable=True)
+    
+    # Physical Attributes
+    height = Column(Float, nullable=True)  # cm
+    current_weight = Column(Float, nullable=True)  # kg
+    target_weight = Column(Float, nullable=True)  # kg
+    gender = Column(String(20), nullable=True)  # male, female, other
+    body_type = Column(String(50), nullable=True)  # ectomorph, mesomorph, endomorph
+    
+    # Fitness Profile
+    fitness_level = Column(String(50), nullable=True)  # beginner, intermediate, advanced
+    activity_level = Column(String(50), nullable=True)  # sedentary, lightly_active, moderately_active, very_active, extremely_active
+    primary_goal = Column(String(100), nullable=True)  # lose_weight, gain_muscle, maintain_weight, improve_endurance, general_fitness
+    secondary_goals = Column(JSON, nullable=True)  # ["improve_strength", "increase_flexibility"]
+    
+    # Preferences
+    preferred_workout_time = Column(String(50), nullable=True)  # morning, afternoon, evening
+    workout_frequency_goal = Column(Integer, nullable=True)  # times per week
+    available_equipment = Column(JSON, nullable=True)  # ["dumbbells", "resistance_bands", "none"]
+    workout_duration_preference = Column(Integer, nullable=True)  # minutes
+    
+    # Medical & Health
+    medical_conditions = Column(JSON, nullable=True)  # ["diabetes", "hypertension"]
+    injuries_limitations = Column(JSON, nullable=True)  # ["lower_back_pain", "knee_injury"]
+    medications = Column(JSON, nullable=True)
+    allergies = Column(JSON, nullable=True)
+    
+    # Social & Motivation
+    bio = Column(Text, nullable=True)
+    motivation_level = Column(Integer, default=5)  # 1-10 scale
+    workout_buddy_preference = Column(Boolean, default=False)
+    public_profile = Column(Boolean, default=False)
+    share_progress = Column(Boolean, default=True)
+    
+    # Media
+    profile_picture_url = Column(String(500), nullable=True)
+    cover_photo_url = Column(String(500), nullable=True)
+    
+    # Notifications & Privacy
+    email_notifications = Column(Boolean, default=True)
+    push_notifications = Column(Boolean, default=True)
+    marketing_emails = Column(Boolean, default=False)
+    data_sharing = Column(Boolean, default=False)
+    
+    # App Settings
+    measurement_unit = Column(String(20), default="metric")  # metric, imperial
+    language = Column(String(10), default="es")  # es, en
+    theme = Column(String(20), default="light")  # light, dark, auto
+    
+    # Timestamps
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+    
+    # Relationships
+    user = relationship("User", back_populates="profile")
 
 
 class Exercise(Base):
@@ -231,27 +304,223 @@ class ProgressEntry(Base):
     user = relationship("User", back_populates="progress_entries")
 
 
+class WeightEntry(Base):
+    """Specific model for weight tracking and loss progress"""
+    __tablename__ = "weight_entries"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    date = Column(Date, nullable=False)
+    
+    # Weight measurements
+    weight = Column(Float, nullable=False)  # kg
+    body_fat_percentage = Column(Float, nullable=True)
+    muscle_mass_percentage = Column(Float, nullable=True)
+    water_percentage = Column(Float, nullable=True)
+    bone_mass = Column(Float, nullable=True)
+    visceral_fat = Column(Float, nullable=True)
+    metabolic_age = Column(Integer, nullable=True)
+    
+    # Body measurements (cm)
+    waist = Column(Float, nullable=True)
+    chest = Column(Float, nullable=True)
+    hips = Column(Float, nullable=True)
+    neck = Column(Float, nullable=True)
+    bicep = Column(Float, nullable=True)
+    thigh = Column(Float, nullable=True)
+    
+    # Progress tracking
+    weight_change = Column(Float, nullable=True)  # vs previous entry
+    weekly_average = Column(Float, nullable=True)
+    monthly_average = Column(Float, nullable=True)
+    progress_toward_goal = Column(Float, nullable=True)  # percentage
+    
+    # Additional data
+    notes = Column(Text, nullable=True)
+    mood = Column(String(50), nullable=True)  # great, good, okay, bad, terrible
+    energy_level = Column(Integer, nullable=True)  # 1-10 scale
+    
+    # Photos for progress comparison
+    progress_photo_url = Column(String(500), nullable=True)
+    
+    # Tracking method
+    measurement_method = Column(String(50), default="scale")  # scale, tape_measure, body_scan, visual
+    measurement_time = Column(String(50), nullable=True)  # morning, evening, after_workout
+    
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    
+    # Relationships
+    user = relationship("User", back_populates="weight_entries")
+
+
+class WorkoutOfTheDay(Base):
+    """Daily workout recommendations"""
+    __tablename__ = "workout_of_the_day"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    date = Column(Date, nullable=False, unique=True)
+    
+    # Workout details
+    title = Column(String(255), nullable=False)
+    description = Column(Text, nullable=False)
+    category = Column(String(100), nullable=False)  # strength, cardio, flexibility, full_body, hiit
+    difficulty_level = Column(String(50), nullable=False)  # beginner, intermediate, advanced
+    estimated_duration = Column(Integer, nullable=False)  # minutes
+    calories_estimate = Column(Integer, nullable=True)
+    
+    # Workout structure
+    warm_up_exercises = Column(JSON, nullable=True)  # List of warm-up exercises
+    main_exercises = Column(JSON, nullable=False)  # Main workout exercises with sets/reps
+    cool_down_exercises = Column(JSON, nullable=True)  # Cool-down exercises
+    
+    # Equipment and requirements
+    equipment_needed = Column(JSON, nullable=True)  # ["dumbbells", "mat", "none"]
+    space_required = Column(String(100), nullable=True)  # small, medium, large
+    target_muscle_groups = Column(JSON, nullable=True)  # ["chest", "legs", "core"]
+    
+    # Motivation and guidance
+    motivation_tip = Column(Text, nullable=True)
+    form_tips = Column(JSON, nullable=True)  # Tips for proper form
+    modifications = Column(JSON, nullable=True)  # Easier/harder variations
+    
+    # Media
+    video_url = Column(String(500), nullable=True)
+    thumbnail_url = Column(String(500), nullable=True)
+    
+    # Engagement
+    completion_count = Column(Integer, default=0)
+    average_rating = Column(Float, default=0.0)
+    
+    # Status
+    is_active = Column(Boolean, default=True)
+    featured = Column(Boolean, default=False)
+    
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+
+
+class UserWorkoutCompletion(Base):
+    """Track user's completion of workout of the day"""
+    __tablename__ = "user_workout_completions"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    workout_id = Column(Integer, ForeignKey("workout_of_the_day.id"), nullable=False)
+    
+    # Completion details
+    completed_at = Column(DateTime(timezone=True), server_default=func.now())
+    actual_duration = Column(Integer, nullable=True)  # actual time taken in minutes
+    difficulty_rating = Column(Integer, nullable=True)  # 1-5 user rating
+    enjoyment_rating = Column(Integer, nullable=True)  # 1-5 user rating
+    
+    # Performance tracking
+    exercises_completed = Column(JSON, nullable=True)  # Which exercises were completed
+    modifications_used = Column(JSON, nullable=True)  # Which modifications were used
+    calories_burned = Column(Integer, nullable=True)
+    
+    # Feedback
+    notes = Column(Text, nullable=True)
+    favorite = Column(Boolean, default=False)
+    would_repeat = Column(Boolean, default=True)
+    
+    # Relationships
+    user = relationship("User")
+    workout = relationship("WorkoutOfTheDay")
+
+
 class Goal(Base):
-    """Goal model for tracking fitness objectives"""
+    """Enhanced goal model for fitness objectives"""
     __tablename__ = "goals"
     
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    
+    # Goal definition
     title = Column(String(255), nullable=False)
-    description = Column(Text)
-    category = Column(String(100), nullable=False)  # weight_loss, muscle_gain, strength, endurance, nutrition
-    target_value = Column(Float)  # target weight, body fat %, etc.
+    description = Column(Text, nullable=True)
+    category = Column(String(100), nullable=False)  # weight_loss, muscle_gain, strength, endurance, nutrition, habits
+    subcategory = Column(String(100), nullable=True)  # specific goal type
+    
+    # Target and progress
+    target_value = Column(Float, nullable=False)  # target weight, body fat %, etc.
     current_value = Column(Float, default=0.0)
-    unit = Column(String(50))  # kg, %, reps, minutes, etc.
-    target_date = Column(Date)
-    status = Column(String(50), default="active")  # active, completed, paused, cancelled
-    priority = Column(String(50), default="medium")  # low, medium, high
+    starting_value = Column(Float, nullable=True)  # baseline value
+    unit = Column(String(50), nullable=False)  # kg, %, reps, minutes, etc.
+    
+    # Timeline
+    target_date = Column(Date, nullable=True)
+    start_date = Column(Date, nullable=True)
+    estimated_completion_date = Column(Date, nullable=True)
+    
+    # Status and priority
+    status = Column(String(50), default="active")  # active, completed, paused, cancelled, overdue
+    priority = Column(String(50), default="medium")  # low, medium, high, critical
+    difficulty = Column(String(50), nullable=True)  # easy, medium, hard, extreme
+    
+    # Progress tracking
+    progress_percentage = Column(Float, default=0.0)
+    milestones = Column(JSON, nullable=True)  # Intermediate milestones
+    milestones_achieved = Column(JSON, nullable=True)  # Completed milestones
+    last_updated_progress = Column(Date, nullable=True)
+    
+    # Motivation and accountability
+    motivation_reason = Column(Text, nullable=True)  # Why this goal matters
+    reward_for_completion = Column(String(255), nullable=True)  # Self-reward
+    accountability_partner = Column(String(255), nullable=True)
+    reminder_frequency = Column(String(50), nullable=True)  # daily, weekly, monthly
+    
+    # Visual tracking
+    goal_image_url = Column(String(500), nullable=True)  # Motivational image
+    progress_chart_data = Column(JSON, nullable=True)  # Historical progress data
+    
+    # Social and sharing
     is_public = Column(Boolean, default=False)
+    allow_support = Column(Boolean, default=True)  # Allow others to cheer/support
+    tags = Column(JSON, nullable=True)  # ["summer_body", "marathon_training"]
+    
+    # Smart goal features
+    is_smart_goal = Column(Boolean, default=False)  # Specific, Measurable, Achievable, Relevant, Time-bound
+    specific_criteria = Column(JSON, nullable=True)  # Detailed success criteria
+    measurement_method = Column(String(100), nullable=True)  # How progress is measured
+    
+    # Analytics
+    average_weekly_progress = Column(Float, default=0.0)
+    predicted_completion_date = Column(Date, nullable=True)
+    success_probability = Column(Float, default=0.0)  # AI prediction 0-1
+    
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
     
     # Relationships
     user = relationship("User", back_populates="goals")
+
+
+class GoalProgress(Base):
+    """Track daily/weekly progress towards goals"""
+    __tablename__ = "goal_progress"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    goal_id = Column(Integer, ForeignKey("goals.id"), nullable=False)
+    date = Column(Date, nullable=False)
+    
+    # Progress data
+    progress_value = Column(Float, nullable=False)
+    progress_change = Column(Float, nullable=True)  # change from previous entry
+    progress_percentage = Column(Float, nullable=False)
+    
+    # Context
+    notes = Column(Text, nullable=True)
+    mood = Column(String(50), nullable=True)  # motivated, neutral, discouraged
+    confidence_level = Column(Integer, nullable=True)  # 1-10 scale
+    
+    # Tracking method
+    measurement_method = Column(String(100), nullable=True)
+    verified = Column(Boolean, default=False)  # If progress was verified/validated
+    
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    
+    # Relationships
+    goal = relationship("Goal")
 
 
 class Notification(Base):
