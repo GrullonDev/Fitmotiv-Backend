@@ -1,24 +1,39 @@
-# FitMotiv Backend API v3.0 🏋️‍♂️
+# FitMotiv Backend API v1.0
 
-**Una API completa de backend para aplicación de fitness y motivación con perfiles extendidos, seguimiento avanzado de progreso y sistema de objetivos inteligente.**
+<div align="center">
+<h3>Una API completa de backend para aplicación de fitness y motivación con perfiles extendidos, seguimiento avanzado de progreso y sistema de objetivos inteligente.</h3>
+</div>
 
-![Version](https://img.shields.io/badge/version-3.0.0-blue.svg)
+![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-green.svg)
 ![Python](https://img.shields.io/badge/python-3.9+-blue.svg)
 ![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-2.0+-orange.svg)
 
-## 🌟 Nuevas Funcionalidades v3.0
+## <span style="color: #2563eb;">⭐</span> Funcionalidades Principales v1.0
 
-### 🔥 Características Principales
-- **🎯 Perfiles de Usuario Extendidos**: Información completa de fitness, salud y preferencias personales
-- **🏆 Sistema de Objetivos Avanzado**: Objetivos SMART con seguimiento automático de hitos y progreso
-- **⚖️ Seguimiento de Peso Corporal**: Análisis de tendencias, proyecciones y fotos de progreso
-- **🏃‍♂️ Workout of the Day**: Rutinas diarias personalizadas con sistema de calificación y recomendaciones
-- **📊 Dashboard Inteligente**: Resumen completo de progreso y estadísticas detalladas
-- **📸 Carga de Archivos**: Fotos de perfil, portada y progreso con gestión automática
-- **📈 Análisis Avanzados**: Estadísticas detalladas y proyecciones de progreso basadas en datos
+### <span style="colo### v1.0.0 (Octubre 2025) - **Primera Versión Estable**
+- <span style="color: #059669;">▶</span> **Perfiles de usuario extendidos** con 40+ campos personalizables
+- <span style="color: #059669;">▶</span> **Sistema de objetivos SMART** con seguimiento automático de progreso
+- <span style="color: #059669;">▶</span> **Seguimiento avanzado de peso** con análisis de tendencias y proyecciones
+- <span style="color: #059669;">▶</span> **Workout of the Day** con recomendaciones personalizadas y sistema de calificación
+- <span style="color: #059669;">▶</span> **Dashboard inteligente** con análisis completo de progreso y estadísticas
+- <span style="color: #059669;">▶</span> **Sistema de carga de archivos** para fotos de perfil, portada y progreso
+- <span style="color: #059669;">▶</span> **API completamente compatible** con aplicaciones móviles modernas
+- <span style="color: #2563eb;">▶</span> **Autenticación JWT robusta** con refresh tokens y blacklist
+- <span style="color: #dc2626;">▶</span> **Sistema de motivación gamificado** con quotes, desafíos y recompensas
+- <span style="color: #7c3aed;">▶</span> **Sistema de notificaciones inteligentes** para FCM y APNS
+- <span style="color: #2563eb;">▶</span> **Análisis y métricas avanzadas** con proyecciones estadísticas
+- <span style="color: #dc2626;">▶</span> **Base de datos completa** de ejercicios y rutinas
+- <span style="color: #2563eb;">▶</span> **Documentación automática** con Swagger UI y ReDoc</span> Características Principales
+- **<span style="color: #2563eb;">●</span> Perfiles de Usuario Extendidos**: Información completa de fitness, salud y preferencias personales
+- **<span style="color: #059669;">●</span> Sistema de Objetivos Avanzado**: Objetivos SMART con seguimiento automático de hitos y progreso
+- **<span style="color: #7c3aed;">●</span> Seguimiento de Peso Corporal**: Análisis de tendencias, proyecciones y fotos de progreso
+- **<span style="color: #dc2626;">●</span> Workout of the Day**: Rutinas diarias personalizadas con sistema de calificación y recomendaciones
+- **<span style="color: #059669;">●</span> Dashboard Inteligente**: Resumen completo de progreso y estadísticas detalladas
+- **<span style="color: #2563eb;">●</span> Carga de Archivos**: Fotos de perfil, portada y progreso con gestión automática
+- **<span style="color: #7c3aed;">●</span> Análisis Avanzados**: Estadísticas detalladas y proyecciones de progreso basadas en datos
 
-### 💪 Sistema de Motivación y Gamificación
+### <span style="color: #dc2626;">💪</span> Sistema de Motivación y Gamificación
 - **15 quotes motivacionales** en español categorizados por tema
 - **10 desafíos diarios** con diferentes niveles de dificultad
 - **Sistema de puntos y recompensas** gamificado con 8 logros desbloqueables
@@ -26,19 +41,19 @@
 - **Tracking de streaks** para mantener la consistencia
 - **Dashboard motivacional** completo con métricas de engagement
 
-### 🔐 Sistema de Autenticación Robusto
+### <span style="color: #059669;">🔐</span> Sistema de Autenticación Robusto
 - Autenticación JWT con refresh tokens seguros
 - Gestión completa de usuarios con verificación
 - Recuperación de contraseña y verificación de email
 - Blacklist de tokens para logout seguro
 
-### 🔔 Sistema de Notificaciones Inteligentes
+### <span style="color: #2563eb;">🔔</span> Sistema de Notificaciones Inteligentes
 - Soporte completo para FCM (Android) y APNS (iOS)
 - Configuraciones granulares por usuario y tipo de notificación
 - Notificaciones inteligentes basadas en actividad y progreso
 - Historial completo con estadísticas de engagement
 
-## 🛠️ Stack Tecnológico
+## <span style="color: #7c3aed;">🛠️</span> Stack Tecnológico
 
 - **FastAPI 0.100+** - Framework web moderno con documentación automática
 - **SQLAlchemy 2.0+** - ORM avanzado con soporte async
@@ -49,59 +64,60 @@
 - **Alembic** - Gestión de migraciones de base de datos
 - **Python 3.9+** - Lenguaje base con tipado estático
 
-## 🏗️ Arquitectura del Proyecto
+## <span style="color: #2563eb;">🏗️</span> Arquitectura del Proyecto
 
 ```
 fitmotiv-backend/
-├── app/
+├── ```
+app/
 │   ├── __init__.py
-│   ├── main.py                     # 🚀 Aplicación principal FastAPI
-│   ├── config.py                   # ⚙️ Configuración y variables de entorno
-│   ├── database.py                 # 🗄️ Configuración de base de datos
-│   ├── models.py                   # 📊 Modelos SQLAlchemy extendidos
-│   ├── schemas.py                  # 📋 Schemas Pydantic para validación
-│   ├── security.py                 # 🔐 Funciones de seguridad y JWT
-│   ├── blacklist.py                # 🚫 Blacklist de tokens
+│   ├── main.py                     # <span style="color: #dc2626;">●</span> Aplicación principal FastAPI
+│   ├── config.py                   # <span style="color: #059669;">●</span> Configuración y variables de entorno
+│   ├── database.py                 # <span style="color: #2563eb;">●</span> Configuración de base de datos
+│   ├── models.py                   # <span style="color: #7c3aed;">●</span> Modelos SQLAlchemy extendidos
+│   ├── schemas.py                  # <span style="color: #059669;">●</span> Schemas Pydantic para validación
+│   ├── security.py                 # <span style="color: #dc2626;">●</span> Funciones de seguridad y JWT
+│   ├── blacklist.py                # <span style="color: #7c3aed;">●</span> Blacklist de tokens
 │   └── routers/
 │       ├── __init__.py
-│       ├── auth_router.py          # 🔐 Autenticación y usuarios
-│       ├── user_router.py          # 👤 Gestión de usuarios
-│       ├── profile_router.py       # 🆕 Gestión de perfiles extendidos
-│       ├── goals_router.py         # 🆕 Sistema de objetivos SMART
-│       ├── weight_progress_router.py # 🆕 Seguimiento de peso corporal
-│       ├── workouts_router.py      # 🆕 Rutinas diarias personalizadas
-│       ├── exercise_router.py      # 💪 Ejercicios y rutinas
-│       ├── routine_router.py       # 📋 Rutinas de entrenamiento
-│       ├── nutrition_router.py     # 🥗 Gestión nutricional
-│       ├── progress_router.py      # 📈 Tracking de progreso
-│       ├── notification_router.py  # 🔔 Sistema de notificaciones
-│       └── motivation_router.py    # 💪 Sistema de motivación diaria
+│       ├── auth_router.py          # <span style="color: #dc2626;">●</span> Autenticación y usuarios
+│       ├── user_router.py          # <span style="color: #2563eb;">●</span> Gestión de usuarios
+│       ├── profile_router.py       # <span style="color: #059669;">●</span> Gestión de perfiles extendidos
+│       ├── goals_router.py         # <span style="color: #059669;">●</span> Sistema de objetivos SMART
+│       ├── weight_progress_router.py # <span style="color: #059669;">●</span> Seguimiento de peso corporal
+│       ├── workouts_router.py      # <span style="color: #059669;">●</span> Rutinas diarias personalizadas
+│       ├── exercise_router.py      # <span style="color: #dc2626;">●</span> Ejercicios y rutinas
+│       ├── routine_router.py       # <span style="color: #7c3aed;">●</span> Rutinas de entrenamiento
+│       ├── nutrition_router.py     # <span style="color: #059669;">●</span> Gestión nutricional
+│       ├── progress_router.py      # <span style="color: #2563eb;">●</span> Tracking de progreso
+│       ├── notification_router.py  # <span style="color: #dc2626;">●</span> Sistema de notificaciones
+│       └── motivation_router.py    # <span style="color: #dc2626;">●</span> Sistema de motivación diaria
 ├── scripts/
-│   ├── init_database.py            # 🆕 Script maestro de inicialización
-│   ├── populate_exercises.py       # 💪 Poblar ejercicios de ejemplo
-│   ├── populate_workouts.py        # 🆕 Poblar rutinas semanales
-│   ├── populate_progress.py        # 📈 Poblar datos de progreso
-│   ├── populate_motivation.py      # 💪 Poblar sistema de motivación
-│   └── test_system.py              # 🧪 Pruebas del sistema
-├── uploads/                        # 🆕 Directorio para archivos subidos
-│   ├── profiles/                   # 📸 Fotos de perfil
-│   ├── progress/                   # 📈 Fotos de progreso
-│   └── covers/                     # 🖼️ Fotos de portada
-├── alembic/                        # 🔄 Configuración de migraciones
-├── requirements.txt                # 📦 Dependencias optimizadas
-├── .env                           # ⚙️ Variables de entorno
-├── test.db                        # 🗄️ Base de datos SQLite (desarrollo)
-└── README.md                      # 📖 Esta documentación
+│   ├── init_database.py            # <span style="color: #059669;">●</span> Script maestro de inicialización
+│   ├── populate_exercises.py       # <span style="color: #dc2626;">●</span> Poblar ejercicios de ejemplo
+│   ├── populate_workouts.py        # <span style="color: #059669;">●</span> Poblar rutinas semanales
+│   ├── populate_progress.py        # <span style="color: #2563eb;">●</span> Poblar datos de progreso
+│   ├── populate_motivation.py      # <span style="color: #dc2626;">●</span> Poblar sistema de motivación
+│   └── test_system.py              # <span style="color: #7c3aed;">●</span> Pruebas del sistema
+├── uploads/                        # <span style="color: #059669;">●</span> Directorio para archivos subidos
+│   ├── profiles/                   # <span style="color: #2563eb;">●</span> Fotos de perfil
+│   ├── progress/                   # <span style="color: #2563eb;">●</span> Fotos de progreso
+│   └── covers/                     # <span style="color: #2563eb;">●</span> Fotos de portada
+├── alembic/                        # <span style="color: #059669;">●</span> Configuración de migraciones
+├── requirements.txt                # <span style="color: #7c3aed;">●</span> Dependencias optimizadas
+├── .env                           # <span style="color: #059669;">●</span> Variables de entorno
+├── test.db                        # <span style="color: #2563eb;">●</span> Base de datos SQLite (desarrollo)
+└── README.md                      # <span style="color: #2563eb;">●</span> Esta documentación
 ```
 
-## 🚀 Instalación y Configuración
+## <span style="color: #dc2626;">⚡</span> Instalación y Configuración
 
-### 📋 Prerrequisitos
+### <span style="color: #2563eb;">📋</span> Prerrequisitos
 - **Python 3.9+** (recomendado 3.11+)
 - **pip** (incluido con Python)
 - **Git** para clonar el repositorio
 
-### ⚡ Inicio Rápido (5 minutos)
+### <span style="color: #dc2626;">⚡</span> Inicio Rápido (5 minutos)
 
 1. **Clonar el repositorio**
    ```bash
@@ -153,9 +169,9 @@ EMAIL_HOST_USER=tu-email@gmail.com
 EMAIL_HOST_PASSWORD=tu-password
 ```
 
-## 📊 API Endpoints Completos
+## <span style="color: #2563eb;">📊</span> API Endpoints Completos
 
-### 🔐 Autenticación y Usuarios
+### <span style="color: #059669;">🔐</span> Autenticación y Usuarios
 ```
 POST   /api/auth/register           # Registro de usuario
 POST   /api/auth/login              # Inicio de sesión
@@ -166,7 +182,7 @@ GET    /api/users/me                # Información del usuario
 PUT    /api/users/me                # Actualizar usuario
 ```
 
-### 👤 Perfiles Extendidos (🆕 v3.0)
+### <span style="color: #2563eb;">👤</span> Perfiles Extendidos <span style="color: #059669;">(v1.0)</span>
 ```
 GET    /api/profiles/me             # Obtener perfil completo
 PUT    /api/profiles/me             # Actualizar perfil
@@ -180,7 +196,7 @@ GET    /api/profiles/me/settings    # Configuraciones personales
 PUT    /api/profiles/me/settings    # Actualizar configuraciones
 ```
 
-### 🎯 Sistema de Objetivos SMART (🆕 v3.0)
+### <span style="color: #dc2626;">🎯</span> Sistema de Objetivos SMART <span style="color: #059669;">(v1.0)</span>
 ```
 GET    /api/goals/                  # Listar objetivos
 POST   /api/goals/                  # Crear objetivo SMART
@@ -193,7 +209,7 @@ GET    /api/goals/dashboard         # Dashboard de objetivos
 GET    /api/goals/milestones        # Hitos alcanzados
 ```
 
-### ⚖️ Seguimiento de Peso Corporal (🆕 v3.0)
+### <span style="color: #7c3aed;">⚖️</span> Seguimiento de Peso Corporal <span style="color: #059669;">(v1.0)</span>
 ```
 GET    /api/weight/entries          # Entradas de peso
 POST   /api/weight/entries          # Registrar nuevo peso
@@ -206,7 +222,7 @@ POST   /api/weight/photos           # Subir foto de progreso
 GET    /api/weight/summary/weekly   # Resumen semanal
 ```
 
-### 🏃‍♂️ Workout of the Day (🆕 v3.0)
+### <span style="color: #dc2626;">🏃‍♂️</span> Workout of the Day <span style="color: #059669;">(v1.0)</span>
 ```
 GET    /api/workouts/today          # Rutina de hoy
 GET    /api/workouts/               # Todas las rutinas disponibles
@@ -575,16 +591,16 @@ python3 --version  # Debe ser 3.9+
 - 📖 **Documentación**: ejemplos y guías de uso
 - 🎨 **UI/UX**: mejoras en responses y estructura de datos
 
-## 🏆 Reconocimientos y Créditos
+## <span style="color: #dc2626;">🏆</span> Reconocimientos y Créditos
 
 - **FastAPI Team** - Framework web excepcional
 - **SQLAlchemy Team** - ORM robusto y flexible
 - **Pydantic Team** - Validación de datos elegante
 - **Uvicorn Team** - Servidor ASGI de alto rendimiento
 
-## 📋 Changelog
+## <span style="color: #2563eb;">📋</span> Changelog
 
-### v3.0.0 (Octubre 2025)
+### v1.0.0 (Octubre 2025) - **Primera Versión Estable** 🎉
 - ✨ **Perfiles de usuario extendidos** con 40+ campos personalizables
 - ✨ **Sistema de objetivos SMART** con seguimiento automático de progreso
 - ✨ **Seguimiento avanzado de peso** con análisis de tendencias y proyecciones
@@ -592,32 +608,53 @@ python3 --version  # Debe ser 3.9+
 - ✨ **Dashboard inteligente** con análisis completo de progreso y estadísticas
 - ✨ **Sistema de carga de archivos** para fotos de perfil, portada y progreso
 - ✨ **API completamente compatible** con aplicaciones móviles modernas
-- 🔧 **Mejoras significativas** en autenticación, seguridad y validación de datos
+- 🔧 **Autenticación JWT robusta** con refresh tokens y blacklist
+- 💪 **Sistema de motivación gamificado** con quotes, desafíos y recompensas
+- 🔔 **Sistema de notificaciones inteligentes** para FCM y APNS
 - 📊 **Análisis y métricas avanzadas** con proyecciones estadísticas
+- 🏃‍♂️ **Base de datos completa** de ejercicios y rutinas
+- � **Documentación automática** con Swagger UI y ReDoc
 
-### v2.0.0 (2024)
-- 💪 Sistema básico de ejercicios y rutinas de entrenamiento
-- 🔐 Autenticación JWT robusta con refresh tokens
-- 📊 Base de datos SQLAlchemy con modelos relacionales
+### **Roadmap Futuro:**
+- **v1.1.x** - Nuevas funcionalidades menores y mejoras
+- **v1.x.x** - Correcciones de bugs y actualizaciones de seguridad
+- **v2.0.x** - Funcionalidades principales adicionales (cuando sea necesario)
 
-### v1.0.0 (2024)
-- 🚀 API básica con CRUD de usuarios y autenticación
-- 💪 Sistema de motivación diaria con quotes y desafíos
-- 📱 Compatibilidad básica con aplicaciones móviles
-
-## 📄 Licencia
+## <span style="color: #2563eb;">📄</span> Licencia
 
 Este proyecto está bajo la **Licencia MIT**. Ver archivo `LICENSE` para más detalles.
 
-## 📞 Soporte y Contacto
+## <span style="color: #059669;">📞</span> Soporte y Contacto
 
-- **📖 Documentación**: http://localhost:8000/docs
-- **🐛 Issues**: [GitHub Issues](https://github.com/GrullonDev/Fitmotiv-Backend/issues)
-- **💬 Discusiones**: [GitHub Discussions](https://github.com/GrullonDev/Fitmotiv-Backend/discussions)
-- **📧 Email**: support@fitmotiv.app
+- **<span style="color: #2563eb;">📖</span> Documentación**: http://localhost:8000/docs
+- **<span style="color: #dc2626;">🐛</span> Issues**: [GitHub Issues](https://github.com/GrullonDev/Fitmotiv-Backend/issues)
+- **<span style="color: #7c3aed;">💬</span> Discusiones**: [GitHub Discussions](https://github.com/GrullonDev/Fitmotiv-Backend/discussions)
+- **<span style="color: #059669;">📧</span> Email**: support@fitmotiv.app
 
 ---
 
-**🎯 FitMotiv v3.0 - Tu compañero de fitness más inteligente y completo! 🏃‍♂️💪📱**
+## <span style="color: #2563eb;">👨‍💻</span> Desarrollador
 
-*Desarrollado con FastAPI, SQLAlchemy, mucha pasión por el fitness y dedicación al código limpio 🚀*
+**FitMotiv Backend v1.0** fue desarrollado por **[GrullonDev](https://github.com/GrullonDev)**
+
+### <span style="color: #059669;">📬</span> Contacto Profesional:
+- **<span style="color: #059669;">📧</span> Email**: [prosystem155@gmail.com](mailto:prosystem155@gmail.com)
+- **<span style="color: #7c3aed;">💼</span> Portafolio**: [Ver proyectos y experiencia](https://jorgegrullondev.com)
+- **<span style="color: #2563eb;">👨‍💻</span> GitHub**: [@GrullonDev](https://github.com/GrullonDev)
+- **<span style="color: #059669;">🔗</span> LinkedIn**: [Conectar en LinkedIn](https://linkedin.com/in/grullondev)
+
+### <span style="color: #dc2626;">🚀</span> Servicios de Desarrollo:
+- **Backend APIs**: FastAPI, Django, Node.js
+- **Mobile Development**: React Native, Flutter
+- **Cloud & DevOps**: AWS, Docker, CI/CD
+- **Database Design**: PostgreSQL, MongoDB, Redis
+
+*¿Tienes un proyecto en mente? ¡Hablemos y hagámoslo realidad!*
+
+---
+
+<div align="center">
+<h3><span style="color: #dc2626;">●</span> FitMotiv v1.0 - Tu compañero de fitness más inteligente y completo!</h3>
+
+<p><em>Desarrollado con FastAPI, SQLAlchemy, mucha pasión por el fitness y dedicación al código limpio</em></p>
+</div>
